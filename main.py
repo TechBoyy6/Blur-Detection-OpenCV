@@ -14,3 +14,7 @@ def show_images(image):
 
     cv2.imshow("a", cv2.resize(image, dim, interpolation=cv2.INTER_AREA))
     cv2.waitKey(0)
+
+def main():
+    path = ""
+    readImage(path)
