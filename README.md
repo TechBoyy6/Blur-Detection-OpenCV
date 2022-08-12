@@ -7,3 +7,5 @@ Its a industrial project for blur detection of images. We a team of 4 college fr
 # Moiz Edit
 # SATYAM SHAH
 >>>>>>> 0e61211db8d788785d1fe1c9c967566f11c0fd5e
+ 
+ # satyam shah 181201
