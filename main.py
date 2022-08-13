@@ -32,11 +32,7 @@ def method_laplacian(img):
     return lap_factor
 
 def main():
-<<<<<<< HEAD
     path = "E:\Blur-Detection-OpenCV\sample\image1.jpg"
-=======
-    path = "D:\college\Blur-Detection-OpenCV\sample\satyam1.jpeg"
->>>>>>> 645bb45e627798e491d813b4d26e2966d4b4fbf7
     img = readImage(path)
     show_images(img)
     factor = method_laplacian(img)
