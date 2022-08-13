@@ -32,7 +32,7 @@ def method_laplacian(img):
     return lap_factor
 
 def main():
-    path = "test1.jpg"
+    path = "E:\Blur-Detection-OpenCV\sample\image1.jpg"
     img = readImage(path)
     factor = method_laplacian(img)
     if(factor<blur_factor):
