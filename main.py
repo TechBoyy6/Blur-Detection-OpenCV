@@ -41,8 +41,8 @@ def main():
 
     for file in files:          #this will directly get all the files from the directory/folder 
         imgpath = os.path.join(path, file)
-        print(imgpath)          #@moiz no need of imshow coz we just have to check whether it is blur or not 
-        image = cv2.imread(imgpath, cv2.IMREAD_GRAYSCALE)
+        print(imgpath)          #@moiz no need of imread, imshow coz we just have to check whether it is blur or not 
+        image = cv2.imread(imgpath, cv2.IMREAD_GRAYSCALE) #imread function is already done here
         factor = method_laplacian(image)
         if(factor<blur_factor):
             print("Image to blur")
@@ -50,3 +50,5 @@ def main():
             print("This Image can work")
 
 main()
+
+#DELETE ALL THE COMMENTS WHEN READ BY ALL MEMBERS
