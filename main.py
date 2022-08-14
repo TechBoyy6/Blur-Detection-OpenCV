@@ -34,14 +34,14 @@ def method_laplacian(img):
 
 def main():
     #path = "resources/test4.jpg"
-    #img = readImage(path)
+    #img = readImage(path) 
     #show_images(img)
-    path = 'sample'
+    path = 'sample'         #change this whatever is your folder name 
     files = os.listdir(path)
 
-    for file in files:
+    for file in files:          #this will directly get all the files from the directory/folder 
         imgpath = os.path.join(path, file)
-        print(imgpath)
+        print(imgpath)          #@moiz no need of imshow coz we just have to check whether it is blur or not 
         image = cv2.imread(imgpath, cv2.IMREAD_GRAYSCALE)
         factor = method_laplacian(image)
         if(factor<blur_factor):
