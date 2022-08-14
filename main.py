@@ -1,4 +1,5 @@
 import cv2
+import os
 import numpy as np
 
 # ye number different images try karke mila hai
@@ -32,13 +33,20 @@ def method_laplacian(img):
     return lap_factor
 
 def main():
-    path = "E:\Blur-Detection-OpenCV\sample\image1.jpg"
-    img = readImage(path)
-    show_images(img)
-    factor = method_laplacian(img)
-    if(factor<blur_factor):
-        print("Image to blur")
-    else:
-        print("This Image can work")
+    #path = "resources/test4.jpg"
+    #img = readImage(path)
+    #show_images(img)
+    path = 'sample'
+    files = os.listdir(path)
+
+    for file in files:
+        imgpath = os.path.join(path, file)
+        print(imgpath)
+        image = cv2.imread(imgpath, cv2.IMREAD_GRAYSCALE)
+        factor = method_laplacian(image)
+        if(factor<blur_factor):
+            print("Image to blur")
+        else:
+            print("This Image can work")
 
 main()
