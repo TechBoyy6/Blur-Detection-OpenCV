@@ -41,9 +41,10 @@ def main():
         print(imgpath)
         image = cv2.imread(imgpath, cv2.IMREAD_GRAYSCALE)
         factor = method_laplacian(image)
+        cv2.imshow("a", image)
+        cv2.waitKey(0)
         if(factor<blur_factor):
             print("Image to blur")
         else:
             print("This Image can work")
-
 main()
