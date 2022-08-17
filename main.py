@@ -47,4 +47,4 @@ def main():
             print("Image to blur")
         else:
             print("This Image can work")
-main()
+main() 
