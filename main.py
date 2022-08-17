@@ -27,8 +27,6 @@ def method_laplacian(img):
     """@brief Here the Laplacian method is applied and variance of the image is returned
 @param img takes gray scale image"""
     lap_factor = cv2.Laplacian(img, cv2.CV_64F).var()
-    # cv2.imshow('Laplacian', lap_factor)
-    cv2.waitKey(0)
     print(lap_factor)
     return lap_factor
 
@@ -41,10 +39,10 @@ def main():
         print(imgpath)
         image = cv2.imread(imgpath, cv2.IMREAD_GRAYSCALE)
         factor = method_laplacian(image)
-        cv2.imshow("a", image)
-        cv2.waitKey(0)
+        # cv2.imshow("a", image)
+        # cv2.waitKey(0)
         if(factor<blur_factor):
-            print("Image to blur")
+            print("Image wont work")
         else:
-            print("This Image can work")
+            print("Image can work")
 main() 
