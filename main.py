@@ -28,7 +28,7 @@ def method_laplacian(img):
 @param img takes gray scale image"""
     lap_factor = cv2.Laplacian(img, cv2.CV_64F).var()
     # cv2.imshow('Laplacian', lap_factor)
-    # cv2.waitKey(0)
+    cv2.waitKey(0)
     print(lap_factor)
     return lap_factor
 
