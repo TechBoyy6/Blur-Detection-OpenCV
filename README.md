@@ -3,3 +3,4 @@ Its a industrial project for blur detection of images. We a team of 4 college fr
 
 # Moiz Edit
 # SATYAM SHAH
+Aryan
