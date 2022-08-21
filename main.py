@@ -3,7 +3,7 @@ import os
 import numpy as np
 
 # ye number different images try karke mila hai
-blur_factor = 1000
+blur_factor = 600
 
 
 def readImage(path):
