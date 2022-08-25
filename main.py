@@ -31,7 +31,7 @@ def method_laplacian(img):
     return lap_factor
 
 def main():
-    path = 'sample'         #change this whatever is your folder name 
+    path = 'sample/blur_img'         #change this whatever is your folder name 
     files = os.listdir(path)
 
     for file in files:          #this will directly get all the files from the directory/folder 
