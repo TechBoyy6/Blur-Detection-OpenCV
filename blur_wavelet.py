@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Mar  1 20:22:32 2019
-
-@author: pedrofRodenas
-"""
-
 import pywt
 import cv2
 import numpy as np
