@@ -27,7 +27,7 @@ def main():
     #path = "resources/test4.jpg"
     #img = readImage(path)
     #show_images(img)
-    path = 'BLUR'
+    path = 'sample'
     files = os.listdir(path)
     print(files)
 
