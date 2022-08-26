@@ -1,35 +1,49 @@
-import matplotlib.pyplot as plt
+import cv2
 import numpy as np
+import imutils
+import os
 
-
-def detect_blur_fft(image, size=60, threshold=10, vis=False):
+def detect_blur_fft(image, size=60):
+    # grab the dimensions of the image and use the dimensions to
+    # derive the center (x, y)-coordinates
     (h, w) = image.shape
-    (cx, cy) = (int(w / 2.0), int(h / 2.0))
+    (cX, cY) = (int(w / 2.0), int(h / 2.0))
+    # compute the FFT to find the frequency transform, then shift
+    # the zero frequency component (i.e., DC component located at
+    # the top-left corner) to the center where it will be more
+    # easy to analyze
     fft = np.fft.fft2(image)
     fftShift = np.fft.fftshift(fft)
-
-    if vis:
-        magnitude = 20 * np.log(np.abs(fftShift))
-
-        (fig, ax) = plt.subplots(1, 2,)
-
-        ax[0].imshow(image, cmap="gray")
-        ax[0].set_title("Input")
-        ax[0].set_xticks([])
-        ax[0].set_yticks([])
-
-        ax[1].imshow(magnitude, cmap="gray")
-        ax[1].set_title("Magnitude Spectrum")
-        ax[1].set_xticks([])
-        ax[1].set_yticks([])
-
-        plt.show()
-
-    fftShift[cy - size : cy + size, cx - size : cx + size] = 0
+    fftShift[cY - size:cY + size, cX - size:cX + size] = 0
     fftShift = np.fft.ifftshift(fftShift)
     recon = np.fft.ifft2(fftShift)
-
     magnitude = 20 * np.log(np.abs(recon))
     mean = np.mean(magnitude)
+    # the image will be considered "blurry" if the mean value of the
+    # magnitudes is less than the threshold value
+    return mean
 
-    return (mean, mean <= threshold)
+def main():
+    #path = "resources/test4.jpg"
+    #img = readImage(path)
+    #show_images(img)
+    path = 'BLUR'
+    files = os.listdir(path)
+    print(files)
+
+    for file in files:
+        imgpath = os.path.join(path, file)
+        print(imgpath)
+        orig = cv2.imread(imgpath)
+        orig = imutils.resize(orig, width=500)
+        gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
+        # apply our blur detector using the FFT
+        mean = detect_blur_fft(gray, size=60)
+        print("blur-fft-mean", mean)
+
+        if mean < 20:
+            print("image is blurry")
+        else:
+            print("image is normal")
+
+main()
