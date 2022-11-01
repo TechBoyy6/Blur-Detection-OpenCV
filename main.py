@@ -19,7 +19,7 @@ def show_images(image):
     """@brief This function rescales the images and displays it on the screen"""
     # scale_percent = 57
     # width = int(image.shape[1] * scale_percent / 100)
-    # height = int(image.shape[0] * scale_percent / 100)  #ye resize proper hai kya ek baar check kar barabar se @moiz
+    # height = int(image.shape[0] * scale_percent / 100)  
     # dim = (width, height)
 
     cv2.imshow("a", image)
