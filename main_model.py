@@ -9,8 +9,8 @@ Original file is located at
 👇 code for linking to drive for DATA
 """
 
-from google.colab import drive
-drive.mount('/content/drive')
+# from google.colab import drive
+# drive.mount('/content/drive')
 
 """### **Necessary Imports**"""
 
