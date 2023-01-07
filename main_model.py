@@ -9,8 +9,8 @@ Original file is located at
 👇 code for linking to drive for DATA
 """
 
-from google.colab import drive
-drive.mount('/content/drive')
+# from google.colab import drive
+# drive.mount('/content/drive')
 
 """### **Necessary Imports**"""
 
@@ -82,12 +82,12 @@ model = Sequential([
     MaxPooling2D((2,2)),
     Flatten(),
     Dense(64, activation = 'relu'),
-    Dense(1, activation = 'sigmoid')
+    Dense(2, activation = 'softmax')
 ])
 
-model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
+model.compile(optimizer='adam',loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), metrics=['accuracy'])
 
-model.fit(X_train, y_train, epochs = 25, batch_size = 16)
+model.fit(X_train, y_train, epochs = 25, batch_size = 16, random_state=114)
 
 model.evaluate(X_test, y_test)
 
@@ -100,10 +100,10 @@ plt.show()
 
 y_pred = model.predict(X_test[idx2, :].reshape(1, 375, 375, 3))
 y_pred = y_pred > 0.5
-
-if(y_pred == 0):
+print(y_pred)
+if(y_pred[0][0]):
     pred = 'non_blur'
-else:
+elif(not y_pred[0][0]):
     pred = 'blur'
     
 print("Our model says the image is :", pred)
