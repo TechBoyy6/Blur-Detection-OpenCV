@@ -63,7 +63,7 @@ for features,label in training_data:
 X = np.array(X).reshape(-1, IMG_SIZE, IMG_SIZE, 3)
 y = np.array(y).reshape(-1, 1)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.20)
+X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.20, random_state=114)
 
 """👇shows random image"""
 
@@ -87,7 +87,7 @@ model = Sequential([
 
 model.compile(optimizer='adam',loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), metrics=['accuracy'])
 
-model.fit(X_train, y_train, epochs = 25, batch_size = 16, random_state=114)
+model.fit(X_train, y_train, epochs = 25, batch_size = 16)
 
 model.evaluate(X_test, y_test)
 
