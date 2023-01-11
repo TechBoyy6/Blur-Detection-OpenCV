@@ -30,49 +30,67 @@ import tensorflow as tf
 IMG_SIZE = 375
 # Provide the path to the folder 👇 
 DATADIR = "/content/drive/MyDrive/DataSample"
+TESTDIR = "/content/testSample"
 CATEGORIES = ["non_blur", "blur"]
 training_data = []
+testing_data = []
 
-def create_training_data():
+def create_data(type):
   """ This function creates a array of images & labels. Here the images are converted, resized and then stored"""
   for category in CATEGORIES:  # do non_blur and blur
 
-        path = os.path.join(DATADIR,category)  # create path to non_blur and blur
+        if(type == 'train_data'):
+            path = os.path.join(DATADIR,category)  # create path to non_blur and blur
+        else:
+            path = os.path.join(TESTDIR,category)  # create path to non_blur and blur
         class_num = CATEGORIES.index(category)  # get the classification  (0 or a 1). 0=non_blur 1=blur
 
         for img in tqdm(os.listdir(path)):  # iterate over each image per non_blur and blur
             try:
                 img_array = cv2.imread(os.path.join(path,img))  # convert to array
-                new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE))  # resize to normalize data size
-                training_data.append([new_array, class_num])  # add this to our training_data
+                new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE)) # resize to normalize data size
+                if(type == 'train_data'):
+                    training_data.append([new_array, class_num])  # add this to our training_data
+                else:
+                    testing_data.append([new_array, class_num])  # add this to our testing_data
             except Exception as e:  # in the interest in keeping the output clean...
                 pass
 
-create_training_data()
-random.shuffle(training_data)
 
-# it splits the traning_data array into images n labels in seperate list, using them we further divide them in test and train data
+def splitTheData(data):
 
-X = []
-y = []
+    """It splits the data into images and its labels respectively"""
 
-for features,label in training_data:
-    X.append(features)
-    y.append(label)
+    X = []
+    Y = []
+
+    for features,label in data:
+        X.append(features)
+        Y.append(label)
 
 
-X = np.array(X).reshape(-1, IMG_SIZE, IMG_SIZE, 3)
-y = np.array(y).reshape(-1, 1)
+    X = np.array(X).reshape(-1, IMG_SIZE, IMG_SIZE, 3)
+    Y = np.array(Y).reshape(-1, 1)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.20, random_state=114)
+    return X,Y
 
-"""👇shows random image"""
 
-idx = random.randint(0, len(X))
-print(idx)
-plt.figure(figsize=(7,9))
-plt.imshow(X[idx, :])
-plt.show()
+create_data(type='train_data')
+create_data(type='test_data')
+# random.shuffle(training_data)
+
+
+X_train,y_train = splitTheData(data=training_data)
+
+# X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.20, random_state=114)
+
+# """👇shows random image"""
+
+# idx = random.randint(0, len(X))
+# print(idx)
+# plt.figure(figsize=(7,9))
+# plt.imshow(X[idx, :])
+# plt.show()
 
 """## **Model**"""
 
@@ -90,6 +108,9 @@ model.compile(optimizer='adam',loss = tf.keras.losses.SparseCategoricalCrossentr
 
 model.fit(X_train, y_train, epochs = 25, batch_size = 16)
 
+X_test,y_test = splitTheData(data=testing_data)
+
+# Evaulating the model and calculating the accuracy
 model.evaluate(X_test, y_test)
 
 """### **Prediction**"""
