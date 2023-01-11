@@ -23,6 +23,7 @@ from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, AveragePooling2D
+import tensorflow as tf
 
 """### **Importing DataSet**"""
 
