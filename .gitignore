@@ -1,4 +1,5 @@
-sample
+test_sample
+train_sample
 test.py
 Blur_Detection_lite.tflite
 Blur_Detection_98.h5

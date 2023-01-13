@@ -111,7 +111,8 @@ model.fit(X_train, y_train, epochs = 25, batch_size = 16)
 X_test,y_test = splitTheData(data=testing_data)
 
 # Evaulating the model and calculating the accuracy
-model.evaluate(X_test, y_test)
+accuracy = model.evaluate(X_test, y_test)
+print(f"Accuracy of the model is {accuracy}")
 
 """### **Prediction**"""
 
