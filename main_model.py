@@ -19,6 +19,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 import os
+import csv
 from tqdm import tqdm
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.models import Sequential
@@ -34,6 +35,8 @@ TESTDIR = "/content/testSample"
 CATEGORIES = ["non_blur", "blur"]
 training_data = []
 testing_data = []
+test_img_path = []
+result = []
 
 def create_data(type):
   """ This function creates a array of images & labels. Here the images are converted, resized and then stored"""
@@ -48,6 +51,7 @@ def create_data(type):
         for img in tqdm(os.listdir(path)):  # iterate over each image per non_blur and blur
             try:
                 img_array = cv2.imread(os.path.join(path,img))  # convert to array
+                test_img_path.append(os.path.join(path, img))
                 new_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE)) # resize to normalize data size
                 if(type == 'train_data'):
                     training_data.append([new_array, class_num])  # add this to our training_data
@@ -116,17 +120,16 @@ print(f"Accuracy of the model is {accuracy}")
 
 """### **Prediction**"""
 
-idx2 = random.randint(0, len(y_test))
-plt.figure(figsize=(7,9))
-plt.imshow(X_test[idx2, :])
-plt.show()
+for data in X_test:
+  pred = model.predict(data.reshape(1, 250, 250, 3))
+  pred = pred > 0.5
+  if(pred[0][0]):
+      result.append('non_blur')
+  elif(not pred[0][0]):
+      result.append('blur')
 
-y_pred = model.predict(X_test[idx2, :].reshape(1, 375, 375, 3))
-y_pred = y_pred > 0.5
-print(y_pred)
-if(y_pred[0][0]):
-    pred = 'non_blur'
-elif(not y_pred[0][0]):
-    pred = 'blur'
-    
-print("Our model says the image is :", pred)
+with open("predictions.csv", "w+") as f:
+    for (path, prediction) in zip(test_img_path, result):
+      f.write(f"{path}  {prediction}\n")
+f.close()
+print(f"Accuracy of the model is {accuracy}")
